@@ -61,9 +61,7 @@ function App() {
         endMessage={<h4>~ end of catalogue ~</h4>}
       >
         {pageInfo.map(e => {
-          if (e.type) {
-            return <div className='Ad__wrapper'><Ad info={e} /></div>
-          }
+          if (e.type) return <div className='Ad__wrapper' key={e.id}><Ad info={e} /></div>
 
           return <div className='Product__tile' key={e.id}><Product info={e} /></div>
         })}
