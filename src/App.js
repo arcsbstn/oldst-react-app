@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { v4 as uuidv4 } from 'uuid';
 
+import Ad from './components/Ad';
+import CatalogueEnd from './components/CatalogueEnd';
 import Product from './components/Product';
-import Ad from './components/Ad'
 
 function App() {
   let [pageInfo, setPageInfo] = useState([]);
@@ -58,7 +59,7 @@ function App() {
         next={updateStates}
         hasMore={hasMore}
         loader={<h4>loading...</h4>}
-        endMessage={<h4>~ end of catalogue ~</h4>}
+        endMessage={<CatalogueEnd />}
       >
         {pageInfo.map(e => {
           if (e.type) return <div className='Ad__wrapper' key={e.id}><Ad info={e} /></div>
