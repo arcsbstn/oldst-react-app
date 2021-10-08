@@ -9,8 +9,13 @@ function App() {
   let [hasMore, setHasMore] = useState(true);
 
   const fetchData = () => {
-    fetch(`http://localhost:8000/products?_page=${pageNumber}&_limit=15`)
+    return fetch(`http://localhost:8000/products?_page=${pageNumber}&_limit=15`)
       .then(res => res.json())
+      .catch(err => console.error(err))
+  }
+
+  const updateStates = () => {
+    fetchData()
       .then(parsedRes => {
         if (parsedRes.length < 1) setHasMore(false)
 
@@ -21,14 +26,14 @@ function App() {
   }
 
   useEffect(() => {
-    fetchData()
+    updateStates()
   }, []); // eslint-disable-line
 
   return (
     <div className='App'>
       <InfiniteScroll
         dataLength={productsInfo.length}
-        next={fetchData}
+        next={updateStates}
         hasMore={hasMore}
         loader={<h4>loading...</h4>}
         endMessage={<h4>~ end of catalogue ~</h4>}
