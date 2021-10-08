@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { v4 as uuidv4 } from 'uuid';
 
 import Product from './components/Product';
 
@@ -7,6 +8,8 @@ function App() {
   let [pageInfo, setPageInfo] = useState([]);
   let [pageNumber, setPageNumber] = useState(1);
   let [hasMore, setHasMore] = useState(true);
+  let [adsInserted, setAdsInserted] = useState(0);
+  let [prevAdImageId, setPrevAdImageId] = useState(-1)
 
   const fetchData = () => {
     return fetch(`http://localhost:8000/products?_page=${pageNumber}&_limit=15`)
@@ -17,9 +20,28 @@ function App() {
   const updateStates = () => {
     fetchData()
       .then(parsedRes => {
+        let newPageInfo = [...pageInfo, ...parsedRes]
+        let newAdIndex = 20 * adsInserted + adsInserted - 1
+
+        if (newPageInfo.length > 20 && newAdIndex < newPageInfo.length) {
+          console.log('inserting new ad!!!', adsInserted, newAdIndex, newPageInfo.length)
+          let adImageId = Math.floor(Math.random() * 1000)
+
+          while (adImageId === prevAdImageId) adImageId = Math.floor(Math.random() * 1000)
+
+          newPageInfo.splice(newAdIndex, 0, {
+            type: 'ad',
+            url: `http://localhost:8000/ads/?r=${adImageId}`,
+            id: uuidv4()
+          })
+
+          setAdsInserted(adsInserted + 1)
+          setPrevAdImageId(adImageId)
+        }
+
         if (parsedRes.length < 1) setHasMore(false)
 
-        setPageInfo([...pageInfo, ...parsedRes]);
+        setPageInfo(newPageInfo);
         setPageNumber(pageNumber + 1);
       })
       .catch(err => console.error(err))
@@ -39,6 +61,16 @@ function App() {
         endMessage={<h4>~ end of catalogue ~</h4>}
       >
         {pageInfo.map(e => {
+          if (e.type) {
+            return (
+              <img
+                className='ad'
+                src={e.url}
+                alt='ad'
+                key={e.id} />
+            )
+          }
+
           return (
             <div
               className='Product__tile'
