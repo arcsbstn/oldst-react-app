@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Product from './components/Product';
 
 function App() {
-  let [productsInfo, setProductsInfo] = useState([]);
+  let [pageInfo, setPageInfo] = useState([]);
   let [pageNumber, setPageNumber] = useState(1);
   let [hasMore, setHasMore] = useState(true);
 
@@ -19,7 +19,7 @@ function App() {
       .then(parsedRes => {
         if (parsedRes.length < 1) setHasMore(false)
 
-        setProductsInfo([...productsInfo, ...parsedRes]);
+        setPageInfo([...pageInfo, ...parsedRes]);
         setPageNumber(pageNumber + 1);
       })
       .catch(err => console.error(err))
@@ -32,13 +32,13 @@ function App() {
   return (
     <div className='App'>
       <InfiniteScroll
-        dataLength={productsInfo.length}
+        dataLength={pageInfo.length}
         next={updateStates}
         hasMore={hasMore}
         loader={<h4>loading...</h4>}
         endMessage={<h4>~ end of catalogue ~</h4>}
       >
-        {productsInfo.map(e => {
+        {pageInfo.map(e => {
           return (
             <div
               className='Product__tile'
