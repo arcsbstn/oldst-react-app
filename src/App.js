@@ -3,6 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { v4 as uuidv4 } from 'uuid';
 
 import Product from './components/Product';
+import Ad from './components/Ad'
 
 function App() {
   let [pageInfo, setPageInfo] = useState([]);
@@ -24,7 +25,6 @@ function App() {
         let newAdIndex = 20 * adsInserted + adsInserted - 1
 
         if (newPageInfo.length > 20 && newAdIndex < newPageInfo.length) {
-          console.log('inserting new ad!!!', adsInserted, newAdIndex, newPageInfo.length)
           let adImageId = Math.floor(Math.random() * 1000)
 
           while (adImageId === prevAdImageId) adImageId = Math.floor(Math.random() * 1000)
@@ -62,13 +62,7 @@ function App() {
       >
         {pageInfo.map(e => {
           if (e.type) {
-            return (
-              <img
-                className='ad'
-                src={e.url}
-                alt='ad'
-                key={e.id} />
-            )
+            return <div className='Ad__wrapper'><Ad info={e} /></div>
           }
 
           return (
