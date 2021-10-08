@@ -65,14 +65,7 @@ function App() {
             return <div className='Ad__wrapper'><Ad info={e} /></div>
           }
 
-          return (
-            <div
-              className='Product__tile'
-              key={e.id}
-            >
-              <Product info={e} />
-            </div>
-          )
+          return <div className='Product__tile' key={e.id}><Product info={e} /></div>
         })}
       </InfiniteScroll>
     </div>
