@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Ad from './components/Ad';
 import CatalogueEnd from './components/CatalogueEnd';
+import Loader from './components/Loader';
 import Product from './components/Product';
 
 function App() {
@@ -58,7 +59,7 @@ function App() {
         dataLength={pageInfo.length}
         next={updateStates}
         hasMore={hasMore}
-        loader={<h4>loading...</h4>}
+        loader={<Loader />}
         endMessage={<CatalogueEnd />}
       >
         {pageInfo.map(e => {
