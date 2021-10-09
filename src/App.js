@@ -70,7 +70,12 @@ function App() {
   }
 
   const handleSortBySize = () => {
-    console.log('clicked sortBySize')
+    initializeStates();
+
+    if (apiUrl.includes('_sort=size')) setApiUrl(BASE_API_URL);
+    else setApiUrl(`${BASE_API_URL}&_sort=size`);
+
+    updateStates();
   }
 
   const handleSortById = () => {
