@@ -9,14 +9,17 @@ import Loader from './components/Loader';
 import Product from './components/Product';
 
 function App() {
+  const BASE_API_URL = 'http://localhost:8000/products?_limit=15'
+
   let [pageInfo, setPageInfo] = useState([]);
   let [pageNumber, setPageNumber] = useState(1);
   let [hasMore, setHasMore] = useState(true);
   let [adsInserted, setAdsInserted] = useState(0);
   let [prevAdImageId, setPrevAdImageId] = useState(-1)
+  let [apiUrl, setApiUrl] = useState(BASE_API_URL)
 
   const fetchData = () => {
-    return fetch(`http://localhost:8000/products?_page=${pageNumber}&_limit=15`)
+    return fetch(`${apiUrl}&_page=${pageNumber}`)
       .then(res => res.json())
       .catch(err => console.error(err))
   }
@@ -50,8 +53,20 @@ function App() {
       .catch(err => console.error(err))
   }
 
+  const initializeStates = () => {
+    setPageInfo([]);
+    setPageNumber(1);
+    setAdsInserted(0);
+    setPrevAdImageId(-1);
+  }
+
   const handleSortByPrice = () => {
-    console.log('clicked sortByPrice')
+    initializeStates();
+
+    if (apiUrl.includes('_sort=price')) setApiUrl(BASE_API_URL);
+    else setApiUrl(`${BASE_API_URL}&_sort=price`);
+
+    updateStates();
   }
 
   const handleSortBySize = () => {
