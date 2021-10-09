@@ -8,6 +8,10 @@ import Header from './components/Header';
 import Loader from './components/Loader';
 import Product from './components/Product';
 
+import './styles/Ad.scss'
+import './styles/App.scss'
+import './styles/Product.scss'
+
 function App() {
   const BASE_API_URL = 'http://localhost:8000/products?_limit=15'
 
@@ -105,11 +109,13 @@ function App() {
         loader={<Loader />}
         endMessage={<CatalogueEnd />}
       >
-        {pageInfo.map(e => {
-          if (e.type) return <div className='Ad__wrapper' key={e.id}><Ad info={e} /></div>
+        <div className='Page__wrapper'>
+          {pageInfo.map(e => {
+            if (e.type) return <div className='Ad__wrapper' key={e.id}><Ad info={e} /></div>
 
-          return <div className='Product__tile' key={e.id}><Product info={e} /></div>
-        })}
+            return <div className='Product__wrapper' key={e.id}><Product info={e} /></div>
+          })}
+        </div>
       </InfiniteScroll>
     </div>
   );
