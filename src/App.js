@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Ad from './components/Ad';
 import CatalogueEnd from './components/CatalogueEnd';
+import Header from './components/Header';
 import Loader from './components/Loader';
 import Product from './components/Product';
 
@@ -49,12 +50,29 @@ function App() {
       .catch(err => console.error(err))
   }
 
+  const handleSortByPrice = () => {
+    console.log('clicked sortByPrice')
+  }
+
+  const handleSortBySize = () => {
+    console.log('clicked sortBySize')
+  }
+
+  const handleSortById = () => {
+    console.log('clicked sortById')
+  }
+
   useEffect(() => {
     updateStates()
   }, []); // eslint-disable-line
 
   return (
     <div className='App'>
+      <Header
+        sortByPrice={handleSortByPrice}
+        sortBySize={handleSortBySize}
+        sortById={handleSortById}
+      />
       <InfiniteScroll
         dataLength={pageInfo.length}
         next={updateStates}
