@@ -1,8 +1,8 @@
 .Page__wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  position: absolute;
-  top: 80px;
-  padding: 40px;
+  max-width: 70rem;
+  margin: 4rem auto;
+  display: grid;
+  grid-gap: 20px;;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 300px;
 }
