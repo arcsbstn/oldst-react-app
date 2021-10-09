@@ -15,8 +15,8 @@ function App() {
   let [pageNumber, setPageNumber] = useState(1);
   let [hasMore, setHasMore] = useState(true);
   let [adsInserted, setAdsInserted] = useState(0);
-  let [prevAdImageId, setPrevAdImageId] = useState(-1)
-  let [apiUrl, setApiUrl] = useState(BASE_API_URL)
+  let [prevAdImageId, setPrevAdImageId] = useState(-1);
+  let [apiUrl, setApiUrl] = useState(BASE_API_URL);
 
   const fetchData = () => {
     return fetch(`${apiUrl}&_page=${pageNumber}`)
@@ -27,13 +27,13 @@ function App() {
   const updateStates = () => {
     fetchData()
       .then(parsedRes => {
-        let newPageInfo = [...pageInfo, ...parsedRes]
-        let newAdIndex = 20 * adsInserted + adsInserted - 1
+        let newPageInfo = [...pageInfo, ...parsedRes];
+        let newAdIndex = 20 * adsInserted + adsInserted - 1;
 
         if (newPageInfo.length > 20 && newAdIndex < newPageInfo.length) {
-          let adImageId = Math.floor(Math.random() * 1000)
+          let adImageId = Math.floor(Math.random() * 1000);
 
-          while (adImageId === prevAdImageId) adImageId = Math.floor(Math.random() * 1000)
+          while (adImageId === prevAdImageId) adImageId = Math.floor(Math.random() * 1000);
 
           newPageInfo.splice(newAdIndex, 0, {
             type: 'ad',
@@ -41,11 +41,11 @@ function App() {
             id: uuidv4()
           })
 
-          setAdsInserted(adsInserted + 1)
-          setPrevAdImageId(adImageId)
+          setAdsInserted(adsInserted + 1);
+          setPrevAdImageId(adImageId);
         }
 
-        if (parsedRes.length < 1) setHasMore(false)
+        if (parsedRes.length < 1) setHasMore(false);
 
         setPageInfo(newPageInfo);
         setPageNumber(pageNumber + 1);
@@ -88,7 +88,7 @@ function App() {
   }
 
   useEffect(() => {
-    updateStates()
+    updateStates();
   }, []); // eslint-disable-line
 
   return (
