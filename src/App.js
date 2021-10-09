@@ -79,7 +79,12 @@ function App() {
   }
 
   const handleSortById = () => {
-    console.log('clicked sortById')
+    initializeStates();
+
+    if (apiUrl.includes('_sort=id')) setApiUrl(BASE_API_URL);
+    else setApiUrl(`${BASE_API_URL}&_sort=id`);
+
+    updateStates();
   }
 
   useEffect(() => {
