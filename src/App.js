@@ -21,6 +21,7 @@ function App() {
   let [adsInserted, setAdsInserted] = useState(0);
   let [prevAdImageId, setPrevAdImageId] = useState(-1);
   let [apiUrl, setApiUrl] = useState(BASE_API_URL);
+  let [sortByValue, setSortByValue] = useState('')
 
   const fetchData = () => {
     console.log(`fetchData: ${apiUrl}&_page=${pageNumber}`)
@@ -58,26 +59,23 @@ function App() {
       .catch(err => console.error(err))
   }
 
-  const initializeStates = () => {
+  const handleSort = (e) => {
+    e.preventDefault();
+
     setPageInfo([]);
     setPageNumber(1);
     setAdsInserted(0);
-    setPrevAdImageId(-1);
-  }
 
-  const handleSort = (e) => {
-    e.preventDefault();
-    let sortValue = e.target.value
+    if (apiUrl.includes(`_sort=${e.target.value}`)) setApiUrl(BASE_API_URL);
+    else setApiUrl(`${BASE_API_URL}&_sort=${e.target.value}`);
 
-    initializeStates();
-
-    if (apiUrl.includes(`_sort=${sortValue}`)) setApiUrl(BASE_API_URL);
-    else setApiUrl(`${BASE_API_URL}&_sort=${sortValue}`);
+    if (sortByValue === e.target.value) setSortByValue('');
+    else setSortByValue(e.target.value);
   }
 
   useEffect(() => {
     updateStates();
-  }, []); // eslint-disable-line
+  }, [sortByValue]); // eslint-disable-line
 
   return (
     <div className='App'>
