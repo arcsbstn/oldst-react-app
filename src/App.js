@@ -23,6 +23,7 @@ function App() {
   let [apiUrl, setApiUrl] = useState(BASE_API_URL);
 
   const fetchData = () => {
+    console.log(`fetchData: ${apiUrl}&_page=${pageNumber}`)
     return fetch(`${apiUrl}&_page=${pageNumber}`)
       .then(res => res.json())
       .catch(err => console.error(err))
@@ -64,31 +65,14 @@ function App() {
     setPrevAdImageId(-1);
   }
 
-  const handleSortByPrice = () => {
+  const handleSort = (e) => {
+    e.preventDefault();
+    let sortValue = e.target.value
+
     initializeStates();
 
-    if (apiUrl.includes('_sort=price')) setApiUrl(BASE_API_URL);
-    else setApiUrl(`${BASE_API_URL}&_sort=price`);
-
-    updateStates();
-  }
-
-  const handleSortBySize = () => {
-    initializeStates();
-
-    if (apiUrl.includes('_sort=size')) setApiUrl(BASE_API_URL);
-    else setApiUrl(`${BASE_API_URL}&_sort=size`);
-
-    updateStates();
-  }
-
-  const handleSortById = () => {
-    initializeStates();
-
-    if (apiUrl.includes('_sort=id')) setApiUrl(BASE_API_URL);
-    else setApiUrl(`${BASE_API_URL}&_sort=id`);
-
-    updateStates();
+    if (apiUrl.includes(`_sort=${sortValue}`)) setApiUrl(BASE_API_URL);
+    else setApiUrl(`${BASE_API_URL}&_sort=${sortValue}`);
   }
 
   useEffect(() => {
@@ -97,11 +81,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Header
-        sortByPrice={handleSortByPrice}
-        sortBySize={handleSortBySize}
-        sortById={handleSortById}
-      />
+      <Header handleSort={handleSort} />
       <InfiniteScroll
         dataLength={pageInfo.length}
         next={updateStates}
