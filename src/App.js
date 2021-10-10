@@ -24,7 +24,6 @@ function App() {
   let [sortByValue, setSortByValue] = useState('')
 
   const fetchData = () => {
-    console.log(`fetchData: ${apiUrl}&_page=${pageNumber}`)
     return fetch(`${apiUrl}&_page=${pageNumber}`)
       .then(res => res.json())
       .catch(err => console.error(err))
@@ -38,14 +37,16 @@ function App() {
 
         if (newPageInfo.length > 20 && newAdIndex < newPageInfo.length) {
           let adImageId = Math.floor(Math.random() * 1000);
-
           while (adImageId === prevAdImageId) adImageId = Math.floor(Math.random() * 1000);
 
-          newPageInfo.splice(newAdIndex, 0, {
-            type: 'ad',
-            url: `http://localhost:8000/ads/?r=${adImageId}`,
-            id: uuidv4()
-          })
+          if (newAdIndex > 0) {
+            newPageInfo.splice(newAdIndex, 0, {
+              type: 'ad',
+              url: `http://localhost:8000/ads/?r=${adImageId}`,
+              id: uuidv4(),
+              adImageId: adImageId
+            })
+          }
 
           setAdsInserted(adsInserted + 1);
           setPrevAdImageId(adImageId);
