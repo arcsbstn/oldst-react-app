@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 body {
   font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
@@ -14,4 +15,5 @@ body {
   grid-gap: 50px;;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: 300px;
+  padding: 20px;
 }
