@@ -16,7 +16,8 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #ccc;
+    background: rgb(220,145,165);
+    background: linear-gradient(250deg, rgba(220,145,165,1) 0%, rgba(230,180,170,1) 80%); 
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
 
