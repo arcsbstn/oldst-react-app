@@ -1,15 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 header {
   position: fixed;
   width: 100%;
   z-index: 3;
-  background-color: #55494e;
+  background: rgb(240,210,210);
+  background: linear-gradient(90deg, rgba(240,210,210,1) 0%, rgba(170,180,210,1) 100%);
 
   .Header__wrapper {
+    color: #fff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 30px;
+    margin: 40px auto 20px auto;
+    max-width: 70rem;
+    padding: 0 20px;
+
+    .Header__logo {
+      font-family: 'VT323', 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 2em;
+      padding-bottom: 3px;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
 
     .Header__sortOptions {
       ul {
@@ -21,6 +38,16 @@ header {
           display: inline-block;
           list-style-type: none;
           margin-left: 10px;
+        }
+
+        button {
+          color: #fff;
+          font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+          font-size: 1em;
+          background-color: transparent;
+          border: 1px solid #fff;
+          border-radius: 5px;
+          padding: 10px 15px 7px 15px;
         }
       }
     }
