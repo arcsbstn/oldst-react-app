@@ -1,12 +1,13 @@
 .Ad__wrapper {
-  color: #ddd;
+  color: rgb(240,210,210);
   height: 300px;
   margin: 10px;
   position: relative;
-  border: 1px #eee solid;
+  border: 1px rgb(240,210,210) solid;
   border-radius: 5px;
 
   .Ad__placement {
+    font-size: 0.8em;
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
