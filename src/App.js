@@ -66,6 +66,7 @@ function App() {
     setPageInfo([]);
     setPageNumber(1);
     setAdsInserted(0);
+    setHasMore(true);
 
     if (apiUrl.includes(`_sort=${e.target.value}`)) setApiUrl(BASE_API_URL);
     else setApiUrl(`${BASE_API_URL}&_sort=${e.target.value}`);
