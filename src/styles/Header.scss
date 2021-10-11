@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
 header {
   position: fixed;
   width: 100%;
   z-index: 3;
-  background: rgb(240,210,210);
-  background: linear-gradient(90deg, rgba(240,210,210,1) 0%, rgba(170,180,210,1) 100%);
+  background: rgb(220,145,165);
+  background: linear-gradient(250deg, rgba(220,145,165,1) 0%, rgba(230,180,170,1) 80%); 
 
   .Header__wrapper {
     color: #fff;
@@ -48,6 +46,11 @@ header {
           border: 1px solid #fff;
           border-radius: 5px;
           padding: 10px 15px 7px 15px;
+        }
+
+        button:hover, button:active {
+          background-color: rgb(230,140,120);
+          transition: all ease 0.5s;
         }
       }
     }
