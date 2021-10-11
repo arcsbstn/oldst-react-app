@@ -80,7 +80,10 @@ function App() {
 
   return (
     <div className='App'>
-      <Header handleSort={handleSort} />
+      <Header
+        handleSort={handleSort}
+        sortByValue={sortByValue}
+      />
       <InfiniteScroll
         dataLength={pageInfo.length}
         next={updateStates}
