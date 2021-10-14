@@ -97,6 +97,7 @@ function App() {
         })}
       </div>
       <div>{loading && <Loader />}</div>
+      <div>{!hasMore && <CatalogueEnd />}</div>
     </div>
   );
 }
