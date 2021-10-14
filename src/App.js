@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { v4 as uuidv4 } from 'uuid';
 
 import Ad from './components/Ad';
@@ -85,21 +84,13 @@ function App() {
         handleSort={handleSort}
         sortByValue={sortByValue}
       />
-      <InfiniteScroll
-        dataLength={pageInfo.length}
-        next={updateStates}
-        hasMore={hasMore}
-        loader={<Loader />}
-        endMessage={<CatalogueEnd />}
-      >
-        <div className='Page__wrapper'>
-          {pageInfo.map(e => {
-            if (e.type) return <div className='Ad__wrapper' key={e.id}><Ad info={e} /></div>
+      <div className='Page__wrapper'>
+        {pageInfo.map(e => {
+          if (e.type) return <div className='Ad__wrapper' key={e.id}><Ad info={e} /></div>
 
-            return <div className='Product__wrapper' key={e.id}><Product info={e} /></div>
-          })}
-        </div>
-      </InfiniteScroll>
+          return <div className='Product__wrapper' key={e.id}><Product info={e} /></div>
+        })}
+      </div>
     </div>
   );
 }
