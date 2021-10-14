@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Ad from './components/Ad';
@@ -79,9 +79,22 @@ function App() {
     else setSortByValue(e.target.value);
   }
 
+  const observer = useRef()
+  const lastPageElementRef = useCallback(node => {
+    if (loading) return;
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPageNumber(pageNumber + 1);
+        updateStates();
+      }
+    })
+    if (node) observer.current.observe(node)
+  }, [loading, hasMore]); // eslint-disable-line
+
   useEffect(() => {
     updateStates();
-  }, [sortByValue]);
+  }, [sortByValue]); // eslint-disable-line
 
   return (
     <div className='App'>
@@ -90,10 +103,10 @@ function App() {
         sortByValue={sortByValue}
       />
       <div className='Page__wrapper'>
-        {pageInfo.map(e => {
+        {pageInfo.map((e, index) => {
           if (e.type) return <div className='Ad__wrapper' key={e.id}><Ad info={e} /></div>
-
-          return <div className='Product__wrapper' key={e.id}><Product info={e} /></div>
+          else if (pageInfo.length === index + 1) return <div ref={lastPageElementRef} className='Product__wrapper' key={e.id}><Product info={e} /></div>
+          else return <div className='Product__wrapper' key={e.id}><Product info={e} /></div>
         })}
       </div>
       <div>{loading && <Loader />}</div>
