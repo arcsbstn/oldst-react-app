@@ -20,7 +20,8 @@ function App() {
   let [adsInserted, setAdsInserted] = useState(0);
   let [prevAdImageId, setPrevAdImageId] = useState(-1);
   let [apiUrl, setApiUrl] = useState(BASE_API_URL);
-  let [sortByValue, setSortByValue] = useState('')
+  let [sortByValue, setSortByValue] = useState('');
+  let [loading, setLoading] = useState(true);
 
   const fetchData = () => {
     return fetch(`${apiUrl}&_page=${pageNumber}`)
@@ -29,8 +30,12 @@ function App() {
   }
 
   const updateStates = () => {
+    setLoading(true)
+
     fetchData()
       .then(parsedRes => {
+        setLoading(false)
+
         let newPageInfo = [...pageInfo, ...parsedRes];
         let newAdIndex = 20 * adsInserted + adsInserted - 1;
 
@@ -76,7 +81,7 @@ function App() {
 
   useEffect(() => {
     updateStates();
-  }, [sortByValue]); // eslint-disable-line
+  }, [sortByValue]);
 
   return (
     <div className='App'>
@@ -91,6 +96,7 @@ function App() {
           return <div className='Product__wrapper' key={e.id}><Product info={e} /></div>
         })}
       </div>
+      <div>{loading && <Loader />}</div>
     </div>
   );
 }
